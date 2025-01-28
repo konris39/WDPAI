@@ -6,11 +6,12 @@ services:
       context: .
       dockerfile: docker/nginx/Dockerfile
     ports:
-        - "8080:80"
+      - "8080:80"
     volumes:
       - .:/app/
     links:
-        - php
+      - php
+      - db
 
   php:
     build:
@@ -18,3 +19,20 @@ services:
       dockerfile: docker/php/Dockerfile
     volumes:
       - .:/app/
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_DB: wdpai
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:

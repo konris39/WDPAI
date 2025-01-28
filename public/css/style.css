@@ -1,0 +1,541 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #36ace3;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header h1 {
+    font-size: 1.5rem;
+}
+header nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+nav button {
+    background-color: #2b7a3d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+nav button:hover {
+    background-color: #218838;
+}
+#profileLink, #backToApp {
+    text-decoration: none;
+    color: white;
+    background-color: #ff7f00;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+#profileLink:hover, #backToApp:hover {
+    background-color: #e66a00;
+}
+
+.loginContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+.loginContainer h1 {
+    margin-bottom: 20px;
+}
+.loginBox {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 300px;
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.loginBox h2 {
+    margin-bottom: 15px;
+}
+.formGroup {
+    margin-bottom: 15px;
+}
+.formGroup label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.formGroup input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.loginBox button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.loginBox button[type="submit"] {
+    background-color: #28a745;
+    color: #fff;
+}
+.loginBox button[type="submit"]:hover {
+    background-color: #218838;
+}
+#continueAsGuestBtn {
+    background-color: #ffc107;
+    color: #212529;
+}
+#continueAsGuestBtn:hover {
+    background-color: #e0a800;
+}
+.errorMsg {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+main {
+    padding: 20px;
+}
+
+#pendingListsContainer {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 70px;
+}
+.shoppingList {
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+}
+.shoppingList h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: #36ace3;
+    cursor: pointer;
+}
+.shoppingList ul {
+    list-style: none;
+    margin-bottom: 10px;
+    padding: 0;
+}
+.shoppingList ul li {
+    margin-bottom: 5px;
+}
+.shoppingList button {
+    margin-right: 5px;
+}
+.addItemBtn {
+    background-color: #ffc107;
+    color: #212529;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+.addItemBtn:hover {
+    background-color: #e0a800;
+}
+.saveToFavoritesBtn {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+.saveToFavoritesBtn:hover {
+    background-color: #138496;
+}
+.deleteListBtn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+.deleteListBtn:hover {
+    background-color: #c82333;
+}
+.finalizeListBtn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+.finalizeListBtn:hover {
+    background-color: #218838;
+}
+.totalCost {
+    font-size: 1.1rem;
+    color: #28a745;
+    font-weight: bold;
+}
+
+#listCreationModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    padding: 20px;
+    z-index: 200;
+    display: none;
+    width: 300px;
+}
+#listCreationModal.active {
+    display: block;
+}
+#listCreationModal .closeModal {
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    float: right;
+    margin-bottom: 10px;
+}
+
+.itemForm {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+.itemForm input {
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 0.9rem;
+}
+.itemForm button {
+    flex: 0 0 auto;
+}
+
+#finalizedListsBar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border-top: 2px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+    z-index: 100;
+}
+#finalizedListsBar h2 {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+#finalizedListsContainer {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+}
+.finalizedListSummary {
+    background: #fafafa;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    min-width: 180px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.finalizedListSummary h4 {
+    font-size: 1rem;
+    color: #36ace3;
+}
+.finalizedListSummary p {
+    font-size: 0.9rem;
+}
+.deleteFinalizedBtn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+.deleteFinalizedBtn:hover {
+    background-color: #c82333;
+}
+
+#favoritesPanel {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    background-color: #fff;
+    border-left: 2px solid #ccc;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+    z-index: 150;
+    overflow: hidden;
+    transition: width 0.3s ease;
+}
+#favoritesPanel.open {
+    width: 300px;
+}
+.favoritesContent {
+    padding: 10px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+#favoritesContainer {
+    margin-top: 10px;
+    overflow-y: auto;
+    flex: 1;
+}
+.favoriteListSummary {
+    background: #fafafa;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+.removeFavoriteBtn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 3px 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+.closeFavPanelBtn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.profileContainer {
+    background: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.profileHeader {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.avatar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+.userInfo h2 {
+    margin-bottom: 5px;
+}
+.profileStats, .profileActions {
+    margin-bottom: 20px;
+}
+.profileStats h3, .profileActions h3 {
+    margin-bottom: 10px;
+}
+.profileActions button {
+    background-color: #17a2b8;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+}
+.profileActions button:hover {
+    background-color: #138496;
+}
+
+@media (max-width: 768px) {
+    main {
+        padding: 10px;
+    }
+    #pendingListsContainer {
+        padding: 10px;
+    }
+    #finalizedListsBar {
+        padding: 5px;
+    }
+    #finalizedListsContainer {
+        gap: 5px;
+    }
+    .finalizedListSummary {
+        min-width: 150px;
+        padding: 5px;
+    }
+    .itemForm {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+.createAccountBox {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.createAccountBox p {
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.createAccountLink {
+    color: #36ace3;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.createAccountLink:hover {
+    text-decoration: underline;
+    color: #2188b6;
+}
+
+.registerPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+
+.registerContainer {
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+
+.registerBox {
+    margin-top: 20px;
+}
+
+.registerBox h2 {
+    margin-bottom: 20px;
+    color: #36ace3;
+}
+
+
+.formGroup {
+    margin-bottom: 15px;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.formGroup input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+.errorMsg {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.backToLoginBox {
+    margin-top: 15px;
+}
+
+.backToLoginBox p {
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.backToLoginLink {
+    color: #36ace3;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.backToLoginLink:hover {
+    text-decoration: underline;
+    color: #2188b6;
+}

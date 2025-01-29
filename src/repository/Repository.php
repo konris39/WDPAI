@@ -3,10 +3,10 @@
 require_once __DIR__.'/../services/Database.php';
 
 class Repository{
-    protected $pdo;
+    protected $database;
 
     public function __construct(){
-        $this->pdo = (new Database())->getConnection();
+        $this->database = new Database();
     }
 
 

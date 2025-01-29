@@ -1,27 +1,33 @@
 <?php
 
 class Database {
-    private $pdo;
+    //private $pdo;
+    private string $host;
+    private string $dbname;
+    private string $user;
+    private string $password;
 
     public function __construct() {
-        $host = "db"; // Nazwa usługi bazy danych w docker-compose.yml
-        $port = "5432";
-        $dbname = "wdpai";
-        $user = "postgres";
-        $password = "postgres";
+        $this->host = "db";
+        $this->dbname = "wdpai_db";
+        $this->user = "userPostgres";
+        $this->password = "password";
 
-        $dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
+    }
 
+    public function connect() {
         try {
-            $this->pdo = new PDO($dsn, $user, $password);
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $conn = new PDO(
+                "pgsql:host=db;port=5432;dbname=post_db",
+                "userPostgres",
+                "password"
+            );
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            return $conn; // Usuń echo!
         } catch (PDOException $e) {
-            die("Błąd połączenia z bazą danych: " . $e->getMessage());
+            die("Błąd połączenia: " . $e->getMessage());
         }
     }
 
-    public function getConnection(): PDO
-    {
-        return $this->pdo;
-    }
 }

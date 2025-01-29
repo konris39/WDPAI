@@ -1,18 +1,23 @@
 <?php
 
+namespace App\models;
+
 class User
 {
-    private $email;
-    private $password;
-    private $name;
-    private $surname;
+    private string $username;
+    private string $email;
+    private string $password;
 
-    public function __construct(string $email, string $password, string $name, string $surname)
+    public function __construct(string $username, string $email, string $password)
     {
+        $this->username = $username;
         $this->email = $email;
         $this->password = $password;
-        $this->name = $name;
-        $this->surname = $surname;
+    }
+
+    public function getUsername(): string
+    {
+        return $this->username;
     }
 
     public function getEmail(): string
@@ -20,39 +25,8 @@ class User
         return $this->email;
     }
 
-    public function setEmail(string $email)
-    {
-        $this->email = $email;
-    }
-
-    public function getSurname(): string
-    {
-        return $this->surname;
-    }
-
-    public function setSurname(string $surname)
-    {
-        $this->surname = $surname;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name)
-    {
-        $this->name = $name;
-    }
-
     public function getPassword(): string
     {
         return $this->password;
     }
-
-    public function setPassword(string $password)
-    {
-        $this->password = $password;
-    }
-
 }

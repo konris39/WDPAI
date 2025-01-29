@@ -6,8 +6,8 @@
 ------------------------------------------------------------------
 -- 2. UTWORZENIE BAZY DANYCH I POŁĄCZENIE Z NIĄ
 ------------------------------------------------------------------
-CREATE DATABASE wdpai;
-\connect wdpai;
+CREATE DATABASE post_db;
+\connect post_db;
 
 -- 1. USUNIĘCIE ISTNIEJĄCEJ BAZY DANYCH (JEŚLI POTRZEBNE)
 -- DROP DATABASE IF EXISTS wdpai;

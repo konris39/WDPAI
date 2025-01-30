@@ -11,7 +11,7 @@
 <header>
     <h1>Twój Profil</h1>
     <nav>
-        <a href="index.php" id="backToApp">Powrót do aplikacji</a>
+        <a href="index" id="backToApp">Powrót do aplikacji</a>
         <button id="logoutBtn">Wyloguj</button>
     </nav>
 </header>

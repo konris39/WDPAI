@@ -14,7 +14,7 @@
         <button id="createListBtn">Stwórz Listę</button>
 
         <button id="toggleFavoritesBtnTop">Ulubione</button>
-        <a href="profil.php" id="profileLink">Profil</a>
+        <a href="profil" id="profileLink">Profil</a>
         <button id="logoutBtn">Wyloguj</button>
     </nav>
 </header>

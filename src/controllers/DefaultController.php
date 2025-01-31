@@ -1,6 +1,7 @@
 <?php
+namespace App\controllers;
 
-require_once 'AppController.php';
+require_once __DIR__.'/AppController.php';
 
 class DefaultController extends AppController {
 
@@ -22,5 +23,9 @@ class DefaultController extends AppController {
     public function register()
     {
         $this->render('register');
+    }
+
+    public function createList(){
+        $this->render('createList');
     }
 }

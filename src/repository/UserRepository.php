@@ -4,7 +4,6 @@ namespace App\repository;
 
 use App\models\User;
 use PDO;
-use Repository;
 
 require_once 'Repository.php';
 require_once __DIR__.'/../models/User.php';
@@ -23,9 +22,10 @@ class UserRepository extends Repository {
         }
 
         return new User(
+            $user['id'],
             $user['username'],
             $user['email'],
-            $user['password_hash'] // Hasło nadal przechowujemy jako zwykły string
+            $user['password_hash']
         );
     }
 

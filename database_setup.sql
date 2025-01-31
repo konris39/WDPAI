@@ -135,6 +135,7 @@ EXECUTE FUNCTION update_shopping_list_timestamp();
 CREATE OR REPLACE VIEW vw_all_lists_with_users AS
 SELECT
     sl.id AS list_id,
+    sl.user_id, -- Dodano user_id
     sl.list_name,
     u.username,
     fn_total_cost(sl.id) AS total_cost,
@@ -144,6 +145,7 @@ SELECT
 FROM shopping_lists sl
          JOIN users u ON u.id = sl.user_id
 ORDER BY sl.created_at DESC;
+
 
 ------------------------------------------------------------------
 -- 11. WIDOK #2: Widok łączący użytkowników i profile

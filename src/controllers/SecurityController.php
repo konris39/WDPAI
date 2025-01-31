@@ -1,6 +1,7 @@
 <?php
-session_start(); // To musi być pierwsza linijka!
 
+namespace App\controllers;
+session_start();
 use App\repository\UserRepository;
 
 require_once 'AppController.php';

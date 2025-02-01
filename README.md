@@ -66,11 +66,11 @@ Po zalogowaniu możesz tworzyć nowe listy zakupów, dodawać do nich elementy o
 
 ## Finalizacja listy:
 
-Po finalizacji lista przechodzi w status finalized. Dla takich list automatycznie aktualizowane są statystyki użytkownika (liczba sfinalizowanych list oraz łączny koszt obliczony na podstawie pozycji listy).
+Po finalizacji lista przechodzi w status finalized. 
 
 ## Profil Użytkownika, dostęp do profilu:
 
-Po zalogowaniu przejdź do http://localhost:8080/profil, aby zobaczyć dane swojego konta oraz statystyki (np. liczba sfinalizowanych list i łączny koszt zakupów).
+Po zalogowaniu przejdź do http://localhost:8080/profil, aby zobaczyć dane swojego konta (nazwa oraz mail).
 
 Opcje:
 

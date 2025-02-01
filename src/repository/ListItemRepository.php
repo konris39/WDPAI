@@ -10,12 +10,6 @@ require_once __DIR__.'/../models/ListItem.php';
 
 class ListItemRepository extends Repository {
 
-    /**
-     * Pobiera wszystkie elementy z listy zakupów.
-     *
-     * @param int $listId
-     * @return ListItem[]
-     */
     public function getItemsByList(int $listId): array {
         $stmt = $this->database->connect()->prepare('SELECT * FROM shopping_list_items WHERE shopping_list_id = :list_id ORDER BY id ASC');
         $stmt->bindParam(':list_id', $listId, PDO::PARAM_INT);

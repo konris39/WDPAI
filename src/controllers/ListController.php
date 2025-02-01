@@ -18,7 +18,6 @@ class ListController extends AppController
     public function __construct()
     {
         parent::__construct();
-        // Initialize repositories
         $this->listRepo = new ListRepository();
         $this->listItemRepo = new ListItemRepository();
         $this->userRepo = new UserRepository();

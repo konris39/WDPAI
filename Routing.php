@@ -6,6 +6,7 @@ require_once 'src/controllers/SecurityController.php';
 require_once 'src/controllers/ListController.php';
 require_once 'src/controllers/ListItemController.php';
 require_once 'src/controllers/ApiController.php';
+require_once 'src/controllers/ProfileController.php';
 
 class Routing {
 

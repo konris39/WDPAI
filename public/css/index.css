@@ -1,21 +1,19 @@
-/* Global Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body */
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     color: #333;
     min-height: 100vh;
-    /* Zapewniamy dolny margines, żeby zawartość nie była zasłonięta przez stały footer */
     padding-bottom: 150px;
 }
 
-/* Header */
+
 header {
     background-color: #36ace3;
     color: #fff;
@@ -49,11 +47,7 @@ header nav button:hover {
     background-color: #e66a00;
 }
 
-/* ===================== */
-/* Pending Lists Section */
-/* ===================== */
 
-/* Wrapper z napisem nad listami */
 .pending-lists-wrapper {
     margin: 20px;
 }
@@ -62,19 +56,19 @@ header nav button:hover {
     font-size: 1.4rem;
     color: #333;
 }
-/* Kontener na karteczki – układ flex z możliwością zawijania */
+
 #pendingListsContainer {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: flex-start;
 }
-/* Pojedyncza karta listy */
+
 .shoppingList {
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 10px;
-    width: 300px;  /* stała szerokość */
+    width: 300px;
     padding: 15px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
@@ -83,14 +77,14 @@ header nav button:hover {
     color: #36ace3;
     margin-bottom: 10px;
 }
-/* Łączny koszt – wyróżniony napis */
+
 .totalCost {
     font-size: 1.1rem;
     color: #28a745;
     font-weight: bold;
     margin-bottom: 10px;
 }
-/* Lista elementów w karcie */
+
 .shoppingList ul {
     list-style: none;
     padding: 0;
@@ -100,7 +94,7 @@ header nav button:hover {
     margin-bottom: 5px;
     font-size: 0.95rem;
 }
-/* Przyciski w karcie (Finalizuj, Usuń) */
+
 .shoppingList button {
     padding: 5px 10px;
     font-size: 0.9rem;
@@ -124,7 +118,7 @@ header nav button:hover {
 .deleteListBtn:hover {
     background-color: #c82333;
 }
-/* Formularz do dodawania elementu */
+
 .addItemForm {
     display: flex;
     flex-direction: column;
@@ -152,15 +146,10 @@ header nav button:hover {
     background-color: #e0a800;
 }
 
-/* ======================= */
-/* Finalized Lists Section */
-/* ======================= */
-
-/* Pasek na dole z sfinalizowanymi listami */
 #finalizedListsBar {
     background-color: #fff;
     border-top: 2px solid #ccc;
-    padding: 25px 15px; /* Zwiększony padding dla "grubszej" belki */
+    padding: 25px 15px;
     box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
     position: fixed;
     bottom: 0;
@@ -172,13 +161,13 @@ header nav button:hover {
     font-size: 1.3rem;
     color: #333;
 }
-/* Kontener na podsumowania sfinalizowanych list */
+
 #finalizedListsContainer {
     display: flex;
     gap: 15px;
     overflow-x: auto;
 }
-/* Pojedyncza karta sfinalizowanej listy */
+
 .finalizedListSummary {
     background: #fafafa;
     border: 1px solid #ccc;
@@ -200,7 +189,6 @@ header nav button:hover {
     margin: 0;
 }
 
-/* Kontrolki wewnątrz karty sfinalizowanej listy */
 .finalizedCardControls {
     display: flex;
     justify-content: space-between;
@@ -234,15 +222,13 @@ header nav button:hover {
     background-color: #c82333;
 }
 
-/* ================= */
-/* Favorites Panel  */
-/* ================= */
+
 #favoritesPanel {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
-    width: 0; /* Domyślnie ukryty */
+    width: 0;
     background-color: #fff;
     border-left: 2px solid #ccc;
     box-shadow: -2px 0 5px rgba(0,0,0,0.2);
@@ -264,7 +250,6 @@ header nav button:hover {
     overflow-y: auto;
 }
 
-/* Styl dla kart ulubionych */
 .favoriteCard {
     background: #fff;
     border: 1px solid #ddd;
@@ -296,11 +281,9 @@ header nav button:hover {
     background-color: #c82333;
 }
 
-/* ================= */
-/* Confirmation Modal */
-/* ================= */
+
 .modal {
-    display: none; /* Ukryty domyślnie */
+    display: none;
     position: fixed;
     z-index: 300;
     left: 0;
@@ -334,9 +317,6 @@ header nav button:hover {
     color: #fff;
 }
 
-/* ================= */
-/* Responsywność   */
-/* ================= */
 @media (max-width: 768px) {
     #pendingListsContainer {
         justify-content: center;

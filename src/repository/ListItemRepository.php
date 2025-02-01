@@ -61,7 +61,7 @@ class ListItemRepository extends Repository {
         $stmt->bindParam(':list_id', $listId, PDO::PARAM_INT);
         $stmt->bindParam(':item_name', $itemName, PDO::PARAM_STR);
         $stmt->bindParam(':quantity', $quantity, PDO::PARAM_INT);
-        $stmt->bindParam(':price', $price, PDO::PARAM_STR); // NUMERIC w PostgreSQL traktowany jako string
+        $stmt->bindParam(':price', $price, PDO::PARAM_STR);
         $stmt->execute();
     }
 

@@ -1,24 +1,11 @@
--- wdpai.sql
-
--- 1. USUNIĘCIE ISTNIEJĄCEJ BAZY DANYCH (JEŚLI POTRZEBNE)
--- DROP DATABASE IF EXISTS wdpai;
-
 ------------------------------------------------------------------
--- 2. UTWORZENIE BAZY DANYCH I POŁĄCZENIE Z NIĄ
+-- 1. UTWORZENIE BAZY DANYCH I POŁĄCZENIE Z NIĄ
 ------------------------------------------------------------------
---CREATE DATABASE post_db;
+CREATE DATABASE post_db;
 \connect post_db;
 
--- 1. USUNIĘCIE ISTNIEJĄCEJ BAZY DANYCH (JEŚLI POTRZEBNE)
--- DROP DATABASE IF EXISTS wdpai;
-
 ------------------------------------------------------------------
--- 2. UTWORZENIE BAZY DANYCH I POŁĄCZENIE Z NIĄ
-------------------------------------------------------------------
-
-
-------------------------------------------------------------------
--- 3. TABELA UŻYTKOWNIKÓW
+-- 2. TABELA UŻYTKOWNIKÓW
 ------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS users (
                                      id SERIAL PRIMARY KEY,
@@ -29,7 +16,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 ------------------------------------------------------------------
--- 4. TABELA PROFILI UŻYTKOWNIKÓW (1-1 z users)
+-- 3. TABELA PROFILI UŻYTKOWNIKÓW (1-1 z users)
 ------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS user_profiles (
                                              user_id INT PRIMARY KEY,
@@ -44,7 +31,7 @@ CREATE TABLE IF NOT EXISTS user_profiles (
 );
 
 ------------------------------------------------------------------
--- 5. TABELA LIST ZAKUPOWYCH (1-n do users)
+-- 4. TABELA LIST ZAKUPOWYCH (1-n do users)
 ------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS shopping_lists (
                                               id SERIAL PRIMARY KEY,
@@ -60,28 +47,9 @@ CREATE TABLE IF NOT EXISTS shopping_lists (
                                                       ON UPDATE CASCADE
 );
 
-------------------------------------------------------------------
--- 6. TABELA ŁĄCZĄCA USERS <-> SHOPPING_LISTS (n-n) - ULUBIONE
-------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS favorites (
-                                         user_id INT NOT NULL,
-                                         shopping_list_id INT NOT NULL,
-                                         added_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                         PRIMARY KEY (user_id, shopping_list_id),
-                                         CONSTRAINT fk_user_fav
-                                             FOREIGN KEY (user_id)
-                                                 REFERENCES users (id)
-                                                 ON DELETE CASCADE
-                                                 ON UPDATE CASCADE,
-                                         CONSTRAINT fk_list_fav
-                                             FOREIGN KEY (shopping_list_id)
-                                                 REFERENCES shopping_lists (id)
-                                                 ON DELETE CASCADE
-                                                 ON UPDATE CASCADE
-);
 
 ------------------------------------------------------------------
--- 7. TABELA POZYCJI (ITEMÓW) W LIŚCIE ZAKUPOWEJ (1-n do shopping_lists)
+-- 5. TABELA POZYCJI (ITEMÓW) W LIŚCIE ZAKUPOWEJ (1-n do shopping_lists)
 ------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS shopping_list_items (
                                                    id SERIAL PRIMARY KEY,
@@ -97,7 +65,7 @@ CREATE TABLE IF NOT EXISTS shopping_list_items (
 );
 
 ------------------------------------------------------------------
--- 8. FUNKCJA: oblicz łączny koszt listy (sum(quantity*price))
+-- 6. FUNKCJA: oblicz łączny koszt listy (sum(quantity*price))
 ------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION fn_total_cost(list_id INT)
     RETURNS NUMERIC(10,2) AS $$
@@ -114,7 +82,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 ------------------------------------------------------------------
--- 9. WYZWALACZ: aktualizacja updated_at w shopping_lists
+-- 7. WYZWALACZ: aktualizacja updated_at w shopping_lists
 ------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION update_shopping_list_timestamp()
     RETURNS TRIGGER AS $$
@@ -130,7 +98,7 @@ CREATE TRIGGER trg_update_shopping_list_timestamp
 EXECUTE FUNCTION update_shopping_list_timestamp();
 
 ------------------------------------------------------------------
--- 10. WIDOK #1: Widok łączący listy i użytkowników (z total_cost)
+-- 8. WIDOK #1: Widok łączący listy i użytkowników (z total_cost)
 ------------------------------------------------------------------
 CREATE OR REPLACE VIEW vw_all_lists_with_users AS
 SELECT
@@ -148,7 +116,7 @@ ORDER BY sl.created_at DESC;
 
 
 ------------------------------------------------------------------
--- 11. WIDOK #2: Widok łączący użytkowników i profile
+-- 9. WIDOK #2: Widok łączący użytkowników i profile
 ------------------------------------------------------------------
 CREATE OR REPLACE VIEW vw_users_with_profiles AS
 SELECT
@@ -164,7 +132,7 @@ FROM users u
 ORDER BY u.id;
 
 ------------------------------------------------------------------
--- 12. TABELA STATYSTYK UŻYTKOWNIKÓW
+-- 10. TABELA STATYSTYK UŻYTKOWNIKÓW, (nie używana, ale musi istniec, bo sie cos psuje bez niej)
 ------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS user_stats (
                                           user_id INT PRIMARY KEY,
@@ -176,3 +144,6 @@ CREATE TABLE IF NOT EXISTS user_stats (
                                                   ON DELETE CASCADE
                                                   ON UPDATE CASCADE
 );
+------------------------------------------------------------------
+
+

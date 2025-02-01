@@ -19,7 +19,6 @@ class ApiController extends AppController {
         $this->userRepo = new \App\repository\UserRepository();
     }
 
-    // Endpoint GET: api/lists – pobiera wszystkie listy użytkownika
     public function lists() {
         header('Content-Type: application/json');
         session_start();
@@ -36,7 +35,6 @@ class ApiController extends AppController {
         $lists = $this->listRepo->getListsByUser($user->getId());
         $result = ['pending' => [], 'finalized' => []];
         foreach ($lists as $list) {
-            // Pobieramy elementy listy
             $items = $this->listItemRepo->getItemsByList($list->getId());
             $listData = [
                 'id' => $list->getId(),
@@ -61,20 +59,17 @@ class ApiController extends AppController {
         echo json_encode($result);
     }
 
-    // Endpoint POST: api/addItem – dodaje nowy element do listy
     public function addItem() {
         header('Content-Type: application/json');
         session_start();
         $json = file_get_contents('php://input');
         $data = json_decode($json, true);
 
-        // Podstawowa walidacja danych
         if (!isset($data['listId'], $data['itemName'], $data['quantity'], $data['price'])) {
             echo json_encode(['error' => 'Brak wymaganych danych']);
             exit;
         }
 
-        // Pobieramy użytkownika
         if (!isset($_SESSION['user'])) {
             echo json_encode(['error' => 'Brak autoryzacji']);
             exit;
@@ -85,14 +80,12 @@ class ApiController extends AppController {
             exit;
         }
 
-        // Sprawdzamy, czy lista należy do użytkownika
         $list = $this->listRepo->getListById((int)$data['listId']);
         if (!$list || $list->getUserId() !== $user->getId()) {
             echo json_encode(['error' => 'Nie masz uprawnień lub lista nie istnieje']);
             exit;
         }
 
-        // Dodajemy element do listy
         $this->listItemRepo->addItem(
             (int)$data['listId'],
             htmlspecialchars($data['itemName'], ENT_QUOTES, 'UTF-8'),
@@ -103,7 +96,6 @@ class ApiController extends AppController {
         echo json_encode(['status' => 'success']);
     }
 
-    // Endpoint POST: api/finalize – finalizuje listę
     public function finalize() {
         header('Content-Type: application/json');
         session_start();
@@ -114,7 +106,6 @@ class ApiController extends AppController {
             exit;
         }
 
-        // Pobieramy użytkownika
         if (!isset($_SESSION['user'])) {
             echo json_encode(['error' => 'Brak autoryzacji']);
             exit;
@@ -134,7 +125,6 @@ class ApiController extends AppController {
         echo json_encode(['status' => 'success']);
     }
 
-    // Endpoint POST: api/deleteList – usuwa listę
     public function deleteList() {
         header('Content-Type: application/json');
         session_start();
@@ -145,7 +135,6 @@ class ApiController extends AppController {
             exit;
         }
 
-        // Pobieramy użytkownika
         if (!isset($_SESSION['user'])) {
             echo json_encode(['error' => 'Brak autoryzacji']);
             exit;
@@ -166,7 +155,6 @@ class ApiController extends AppController {
         echo json_encode(['status' => 'success']);
     }
 
-    // Endpoint POST: api/deleteItem – usuwa element listy
     public function deleteItem() {
         header('Content-Type: application/json');
         session_start();
@@ -177,7 +165,6 @@ class ApiController extends AppController {
             exit;
         }
 
-        // Pobieramy użytkownika
         if (!isset($_SESSION['user'])) {
             echo json_encode(['error' => 'Brak autoryzacji']);
             exit;
@@ -194,7 +181,6 @@ class ApiController extends AppController {
             exit;
         }
 
-        // Sprawdzamy, czy lista, do której należy element, należy do użytkownika
         $list = $this->listRepo->getListById($item->getShoppingListId());
         if (!$list || $list->getUserId() !== $user->getId()) {
             echo json_encode(['error' => 'Nie masz uprawnień do usunięcia tego elementu']);

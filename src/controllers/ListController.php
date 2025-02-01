@@ -26,7 +26,6 @@ class ListController extends AppController
 
     public function index()
     {
-        // Ensure the user is logged in
         if (!isset($_SESSION['user'])) {
             header("Location: login");
             exit();

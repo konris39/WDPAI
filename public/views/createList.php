@@ -1,4 +1,3 @@
-<!-- WDPAI\public\views\createList.php -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -6,7 +5,6 @@
     <title>Tworzenie Nowej Listy Zakupów</title>
     <link rel="stylesheet" href="public/css/style.css" />
     <style>
-        /* Dodatkowy CSS dla elementów dynamicznych */
         .item-group {
             display: flex;
             gap: 10px;

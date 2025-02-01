@@ -1,5 +1,4 @@
 <?php
-// WDPAI\src\services\Database.php
 
 namespace App\services;
 

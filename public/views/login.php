@@ -24,7 +24,7 @@
             <button type="submit">Zaloguj</button>
         </form>
 
-        <button id="continueAsGuestBtn">Kontynuuj jako Gość</button>
+        <!-- <button id="continueAsGuestBtn">Kontynuuj jako Gość</button> -->
 
         <p id="loginMessage" class="errorMsg">
             <?php if(isset($messages)) {

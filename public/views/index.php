@@ -37,10 +37,8 @@
     </div>
 </section>
 
-<!-- Skrypt JavaScript używający Fetch API -->
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        // Funkcja budująca widok dla list na podstawie otrzymanych danych
         function renderLists(data) {
             const pendingContainer = document.getElementById('pendingListsContainer');
             pendingContainer.innerHTML = '';
@@ -79,7 +77,6 @@
                 });
             }
 
-            // Renderowanie sfinalizowanych list
             const finalizedContainer = document.getElementById('finalizedListsContainer');
             finalizedContainer.innerHTML = '';
             if (data.finalized.length === 0) {
@@ -98,7 +95,6 @@
                 });
             }
 
-            // Dodajemy event listenery dla przycisków rozwijających formularz dodawania elementu
             document.querySelectorAll('.toggleAddItemBtn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const form = this.nextElementSibling;
@@ -106,7 +102,6 @@
                 });
             });
 
-            // Obsługa wysyłania formularza dodawania elementu (Fetch API)
             document.querySelectorAll('.addItemForm').forEach(form => {
                 form.addEventListener('submit', function(e) {
                     e.preventDefault();
@@ -125,14 +120,12 @@
                         })
                         .then(result => {
                             console.log("Element dodany:", result);
-                            // Po dodaniu odświeżamy listy
                             fetchLists();
                         })
                         .catch(error => console.error('Błąd podczas dodawania elementu:', error));
                 });
             });
 
-            // Obsługa przycisków finalizacji listy
             document.querySelectorAll('.finalizeListBtn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const listId = this.dataset.listId;
@@ -150,7 +143,6 @@
                 });
             });
 
-            // Obsługa przycisków usuwania listy (dla oczekujących)
             document.querySelectorAll('.deleteListBtn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const listId = this.dataset.listId;
@@ -168,7 +160,6 @@
                 });
             });
 
-            // Obsługa przycisków usuwania elementu
             document.querySelectorAll('.deleteItemBtn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const itemId = this.dataset.itemId;
@@ -186,7 +177,6 @@
                 });
             });
 
-            // Obsługa przycisków usuwania listy ze sfinalizowanych
             document.querySelectorAll('.deleteFinalizedBtn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const listId = this.dataset.listId;
@@ -205,7 +195,6 @@
             });
         }
 
-        // Funkcja pobierająca listy z backendu
         function fetchLists() {
             fetch('api/lists')
                 .then(response => {
@@ -223,8 +212,10 @@
                 });
         }
 
-        // Pierwsze pobranie list przy załadowaniu strony
         fetchLists();
+    });
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+        window.location.href = "logout";
     });
 </script>
 </body>

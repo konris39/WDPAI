@@ -1,0 +1,344 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    min-height: 100vh;
+    /* Zapewniamy dolny margines, żeby zawartość nie była zasłonięta przez stały footer */
+    padding-bottom: 150px;
+}
+
+/* Header */
+header {
+    background-color: #36ace3;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header h1 {
+    font-size: 1.5rem;
+}
+header nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+header nav a,
+header nav button {
+    text-decoration: none;
+    color: #fff;
+    background-color: #ff7f00;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+header nav a:hover,
+header nav button:hover {
+    background-color: #e66a00;
+}
+
+/* ===================== */
+/* Pending Lists Section */
+/* ===================== */
+
+/* Wrapper z napisem nad listami */
+.pending-lists-wrapper {
+    margin: 20px;
+}
+.pending-lists-wrapper h2 {
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    color: #333;
+}
+/* Kontener na karteczki – układ flex z możliwością zawijania */
+#pendingListsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+}
+/* Pojedyncza karta listy */
+.shoppingList {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 300px;  /* stała szerokość */
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.shoppingList h3 {
+    font-size: 1.2rem;
+    color: #36ace3;
+    margin-bottom: 10px;
+}
+/* Łączny koszt – wyróżniony napis */
+.totalCost {
+    font-size: 1.1rem;
+    color: #28a745;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+/* Lista elementów w karcie */
+.shoppingList ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+.shoppingList ul li {
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+}
+/* Przyciski w karcie (Finalizuj, Usuń) */
+.shoppingList button {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+.finalizeListBtn {
+    background-color: #28a745;
+    color: #fff;
+}
+.finalizeListBtn:hover {
+    background-color: #218838;
+}
+.deleteListBtn {
+    background-color: #dc3545;
+    color: #fff;
+}
+.deleteListBtn:hover {
+    background-color: #c82333;
+}
+/* Formularz do dodawania elementu */
+.addItemForm {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+}
+.addItemForm input[type="text"],
+.addItemForm input[type="number"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    width: 100%;
+}
+.addItemForm button.addItemBtn {
+    align-self: flex-end;
+    padding: 5px 10px;
+    background-color: #ffc107;
+    color: #212529;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.addItemForm button.addItemBtn:hover {
+    background-color: #e0a800;
+}
+
+/* ======================= */
+/* Finalized Lists Section */
+/* ======================= */
+
+/* Pasek na dole z sfinalizowanymi listami */
+#finalizedListsBar {
+    background-color: #fff;
+    border-top: 2px solid #ccc;
+    padding: 25px 15px; /* Zwiększony padding dla "grubszej" belki */
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+#finalizedListsBar h2 {
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    color: #333;
+}
+/* Kontener na podsumowania sfinalizowanych list */
+#finalizedListsContainer {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+}
+/* Pojedyncza karta sfinalizowanej listy */
+.finalizedListSummary {
+    background: #fafafa;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    min-width: 180px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.finalizedListSummary h4 {
+    font-size: 1rem;
+    color: #36ace3;
+    margin-bottom: 5px;
+}
+.finalizedListSummary p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* Kontrolki wewnątrz karty sfinalizowanej listy */
+.finalizedCardControls {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+.finalizedCardControls button {
+    flex: 1;
+    padding: 5px 8px;
+    font-size: 0.8rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+}
+.favoriteFinalizedBtn {
+    background-color: #28a745;
+}
+.favoriteFinalizedBtn:hover {
+    background-color: #218838;
+}
+.hideFinalizedBtn {
+    background-color: #6c757d;
+}
+.hideFinalizedBtn:hover {
+    background-color: #5a6268;
+}
+.deleteFinalizedBtn {
+    background-color: #dc3545;
+}
+.deleteFinalizedBtn:hover {
+    background-color: #c82333;
+}
+
+/* ================= */
+/* Favorites Panel  */
+/* ================= */
+#favoritesPanel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 0; /* Domyślnie ukryty */
+    background-color: #fff;
+    border-left: 2px solid #ccc;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+    overflow: hidden;
+    transition: width 0.3s ease;
+    z-index: 200;
+}
+#favoritesPanel.open {
+    width: 300px;
+}
+.favoritesContent {
+    padding: 10px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+#favoritesContainer {
+    flex: 1;
+    overflow-y: auto;
+}
+
+/* Styl dla kart ulubionych */
+.favoriteCard {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.favoriteCard h4 {
+    font-size: 1rem;
+    color: #36ace3;
+    margin-bottom: 5px;
+}
+.favoriteCard p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+.removeFavoriteBtn {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    margin-top: 5px;
+}
+.removeFavoriteBtn:hover {
+    background-color: #c82333;
+}
+
+/* ================= */
+/* Confirmation Modal */
+/* ================= */
+.modal {
+    display: none; /* Ukryty domyślnie */
+    position: fixed;
+    z-index: 300;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    text-align: center;
+}
+.modal-actions button {
+    padding: 8px 16px;
+    margin: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#confirmYesBtn {
+    background-color: #dc3545;
+    color: #fff;
+}
+#confirmNoBtn {
+    background-color: #28a745;
+    color: #fff;
+}
+
+/* ================= */
+/* Responsywność   */
+/* ================= */
+@media (max-width: 768px) {
+    #pendingListsContainer {
+        justify-content: center;
+    }
+}

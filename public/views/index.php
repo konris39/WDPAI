@@ -4,128 +4,228 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Manager List na Zakupy</title>
-    <link rel="stylesheet" href="public/css/style.css" />
+    <link rel="stylesheet" href="public/css/index.css" />
 </head>
 <body>
-
 <header>
     <h1>Manager List na Zakupy</h1>
     <nav>
         <a href="createList" id="createListBtn" class="create-list-button">Stwórz Listę</a>
-        <button id="toggleFavoritesBtnTop">Ulubione</button>
+        <!-- <button id="toggleFavoritesBtnTop">Ulubione</button> -->
         <a href="profil" id="profileLink">Profil</a>
         <button id="logoutBtn">Wyloguj</button>
     </nav>
 </header>
 
 <main>
-    <?php
-    if (isset($error)) {
-        echo '<p class="errorMsg">' . htmlspecialchars($error, ENT_QUOTES, 'UTF-8') . '</p>';
-    }
-    ?>
-    <section id="pendingListsContainer">
+    <!-- Sekcja list oczekujących -->
+    <div class="pending-lists-wrapper">
         <h2>Twoje Listy (Oczekujące)</h2>
-        <?php if (!empty($listsWithItems)): ?>
-            <?php
-            $hasPending = false;
-            foreach($listsWithItems as $entry):
-                $list = $entry['list'];
-                $items = $entry['items'];
-                if($list->getStatus() === 'pending'):
-                    $hasPending = true;
-                    ?>
-                    <div class="shoppingList">
-                        <h3><?= htmlspecialchars($list->getListName()) ?></h3>
-                        <p>Łączny koszt: <?= number_format($list->getTotalCost(), 2) ?> zł</p>
-
-                        <!-- Formularz do finalizacji listy -->
-                        <form action="finalize" method="post" style="display:inline;">
-                            <input type="hidden" name="listId" value="<?= $list->getId() ?>">
-                            <button type="submit" class="finalizeListBtn">Finalizuj</button>
-                        </form>
-
-                        <!-- Formularz do usuwania listy -->
-                        <form action="delete" method="post" style="display:inline;">
-                            <input type="hidden" name="listId" value="<?= $list->getId() ?>">
-                            <button type="submit" class="deleteListBtn">Usuń</button>
-                        </form>
-
-                        <!-- Formularz do dodawania elementu -->
-                        <form action="addItem" method="post" class="addItemForm">
-                            <input type="hidden" name="listId" value="<?= $list->getId() ?>">
-                            <input type="text" name="itemName" placeholder="Nazwa elementu" required>
-                            <input type="number" name="quantity" value="1" min="1" required>
-                            <input type="number" step="0.01" name="price" placeholder="Cena (zł)" required>
-                            <button type="submit" class="addItemBtn">Dodaj Element</button>
-                        </form>
-
-                        <!-- Wyświetlanie elementów listy -->
-                        <?php if (!empty($items)): ?>
-                            <ul>
-                                <?php foreach($items as $item): ?>
-                                    <li>
-                                        <?= htmlspecialchars($item->getItemName()) ?> - <?= $item->getQuantity() ?> x <?= number_format($item->getPrice(), 2) ?> zł
-                                        <!-- Formularz do usuwania elementu -->
-                                        <form action="deleteItem" method="post" style="display:inline;">
-                                            <input type="hidden" name="itemId" value="<?= $item->getId() ?>">
-                                            <button type="submit" class="deleteItemBtn">Usuń</button>
-                                        </form>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        <?php else: ?>
-                            <p>Brak elementów w tej liście.</p>
-                        <?php endif; ?>
-                    </div>
-                <?php
-                endif;
-            endforeach;
-
-            if (!$hasPending):
-                ?>
-                <p>Nie masz żadnych list zakupów w statusie "Oczekujące".</p>
-            <?php endif; ?>
-        <?php else: ?>
-            <p>Nie masz żadnych list zakupów.</p>
-        <?php endif; ?>
-    </section>
+        <div id="pendingListsContainer">
+            <!-- Tu dynamicznie zostaną wygenerowane karty list -->
+            <p>Ładowanie list...</p>
+        </div>
+    </div>
 </main>
 
+<!-- Pasek sfinalizowanych list (na dole strony) -->
 <section id="finalizedListsBar">
     <h2>Sfinalizowane Listy</h2>
     <div id="finalizedListsContainer">
-        <?php if (!empty($listsWithItems)): ?>
-            <?php
-            $hasFinalized = false;
-            foreach($listsWithItems as $entry):
-                $list = $entry['list'];
-                if ($list->getStatus() === 'finalized'):
-                    $hasFinalized = true;
-                    ?>
-                    <div class="finalizedListSummary">
-                        <h4><?= htmlspecialchars($list->getListName()) ?></h4>
-                        <p>Łączny koszt: <?= number_format($list->getTotalCost(), 2) ?> zł</p>
-                        <form action="delete" method="post">
-                            <input type="hidden" name="listId" value="<?= $list->getId() ?>">
-                            <button type="submit" class="deleteFinalizedBtn">Usuń</button>
-                        </form>
-                    </div>
-                <?php
-                endif;
-            endforeach;
-
-            if (!$hasFinalized):
-                ?>
-                <p>Nie masz żadnych sfinalizowanych list zakupów.</p>
-            <?php endif; ?>
-        <?php else: ?>
-            <p>Nie masz żadnych sfinalizowanych list zakupów.</p>
-        <?php endif; ?>
+        <!-- Tu dynamicznie zostaną wygenerowane karty sfinalizowanych list -->
+        <p>Ładowanie sfinalizowanych list...</p>
     </div>
 </section>
 
-<!-- Pozostały kod widoku -->
+<!-- Skrypt JavaScript używający Fetch API -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Funkcja budująca widok dla list na podstawie otrzymanych danych
+        function renderLists(data) {
+            const pendingContainer = document.getElementById('pendingListsContainer');
+            pendingContainer.innerHTML = '';
+            if (data.pending.length === 0) {
+                pendingContainer.innerHTML = '<p>Nie masz żadnych list zakupów w statusie "Oczekujące".</p>';
+            } else {
+                data.pending.forEach(list => {
+                    const card = document.createElement('div');
+                    card.className = 'shoppingList';
+                    card.dataset.listId = list.id;
+                    card.innerHTML = `
+              <h3>${list.listName}</h3>
+              <p class="totalCost">Łączny koszt: ${parseFloat(list.totalCost).toFixed(2)} zł</p>
+              <div class="listActions">
+                <button class="finalizeListBtn" data-list-id="${list.id}">Finalizuj</button>
+                <button class="deleteListBtn" data-list-id="${list.id}">Usuń</button>
+              </div>
+              <ul class="listItems">
+                ${ list.items.map(item => `
+                  <li>
+                    ${item.itemName} - ${item.quantity} x ${parseFloat(item.price).toFixed(2)} zł
+                    <button class="deleteItemBtn" data-item-id="${item.id}">Usuń</button>
+                  </li>
+                `).join('') }
+              </ul>
+              <button type="button" class="toggleAddItemBtn">Dodaj Element</button>
+              <form class="addItemForm" style="display: none;">
+                <input type="hidden" name="listId" value="${list.id}">
+                <input type="text" name="itemName" placeholder="Nazwa elementu" required>
+                <input type="number" name="quantity" value="1" min="1" required>
+                <input type="number" step="0.01" name="price" placeholder="Cena (zł)" required>
+                <button type="submit">Dodaj Element</button>
+              </form>
+            `;
+                    pendingContainer.appendChild(card);
+                });
+            }
 
+            // Renderowanie sfinalizowanych list
+            const finalizedContainer = document.getElementById('finalizedListsContainer');
+            finalizedContainer.innerHTML = '';
+            if (data.finalized.length === 0) {
+                finalizedContainer.innerHTML = '<p>Nie masz żadnych sfinalizowanych list zakupów.</p>';
+            } else {
+                data.finalized.forEach(list => {
+                    const card = document.createElement('div');
+                    card.className = 'finalizedListSummary';
+                    card.dataset.listId = list.id;
+                    card.innerHTML = `
+              <h4>${list.listName}</h4>
+              <p>Łączny koszt: ${parseFloat(list.totalCost).toFixed(2)} zł</p>
+              <button class="deleteFinalizedBtn" data-list-id="${list.id}">Usuń</button>
+            `;
+                    finalizedContainer.appendChild(card);
+                });
+            }
+
+            // Dodajemy event listenery dla przycisków rozwijających formularz dodawania elementu
+            document.querySelectorAll('.toggleAddItemBtn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const form = this.nextElementSibling;
+                    form.style.display = (form.style.display === "flex" ? "none" : "flex");
+                });
+            });
+
+            // Obsługa wysyłania formularza dodawania elementu (Fetch API)
+            document.querySelectorAll('.addItemForm').forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const formData = new FormData(this);
+                    const dataObj = {};
+                    formData.forEach((value, key) => { dataObj[key] = value; });
+
+                    fetch('api/addItem', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(dataObj)
+                    })
+                        .then(response => {
+                            if (!response.ok) throw new Error("Błąd sieciowy: " + response.status);
+                            return response.json();
+                        })
+                        .then(result => {
+                            console.log("Element dodany:", result);
+                            // Po dodaniu odświeżamy listy
+                            fetchLists();
+                        })
+                        .catch(error => console.error('Błąd podczas dodawania elementu:', error));
+                });
+            });
+
+            // Obsługa przycisków finalizacji listy
+            document.querySelectorAll('.finalizeListBtn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const listId = this.dataset.listId;
+                    fetch('api/finalize', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ listId })
+                    })
+                        .then(response => response.json())
+                        .then(result => {
+                            console.log("Lista sfinalizowana:", result);
+                            fetchLists();
+                        })
+                        .catch(error => console.error('Błąd finalizacji:', error));
+                });
+            });
+
+            // Obsługa przycisków usuwania listy (dla oczekujących)
+            document.querySelectorAll('.deleteListBtn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const listId = this.dataset.listId;
+                    fetch('api/deleteList', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ listId })
+                    })
+                        .then(response => response.json())
+                        .then(result => {
+                            console.log("Lista usunięta:", result);
+                            fetchLists();
+                        })
+                        .catch(error => console.error('Błąd usuwania listy:', error));
+                });
+            });
+
+            // Obsługa przycisków usuwania elementu
+            document.querySelectorAll('.deleteItemBtn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const itemId = this.dataset.itemId;
+                    fetch('api/deleteItem', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ itemId })
+                    })
+                        .then(response => response.json())
+                        .then(result => {
+                            console.log("Element usunięty:", result);
+                            fetchLists();
+                        })
+                        .catch(error => console.error('Błąd usuwania elementu:', error));
+                });
+            });
+
+            // Obsługa przycisków usuwania listy ze sfinalizowanych
+            document.querySelectorAll('.deleteFinalizedBtn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const listId = this.dataset.listId;
+                    fetch('api/deleteList', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ listId })
+                    })
+                        .then(response => response.json())
+                        .then(result => {
+                            console.log("Sfinalizowana lista usunięta:", result);
+                            fetchLists();
+                        })
+                        .catch(error => console.error('Błąd usuwania sfinalizowanej listy:', error));
+                });
+            });
+        }
+
+        // Funkcja pobierająca listy z backendu
+        function fetchLists() {
+            fetch('api/lists')
+                .then(response => {
+                    if (!response.ok) throw new Error('Błąd sieciowy: ' + response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Dane z backendu:", data);
+                    renderLists(data);
+                })
+                .catch(error => {
+                    console.error('Błąd podczas pobierania list:', error);
+                    document.getElementById('pendingListsContainer').innerHTML = '<p>Błąd podczas ładowania list.</p>';
+                    document.getElementById('finalizedListsContainer').innerHTML = '<p>Błąd podczas ładowania list.</p>';
+                });
+        }
+
+        // Pierwsze pobranie list przy załadowaniu strony
+        fetchLists();
+    });
+</script>
 </body>
 </html>

@@ -16,9 +16,9 @@ Uruchom kontenery:
 Aby zbudować obrazy i uruchomić aplikację w tle, wykonaj:
 
 
-
+```
 docker-compose up -d --build
-
+```
 
 Po kilku chwilach aplikacja będzie dostępna pod adresem:
 http://localhost:8080
@@ -34,11 +34,11 @@ Wymuszenie ponownej inicjalizacji:
 Jeśli chcesz zresetować bazę danych (np. po wprowadzeniu zmian w skrypcie), zatrzymaj kontenery i usuń wolumen danych:
 
 
-
+```
 docker-compose down -v
 
 docker-compose up -d --build
-
+```
 
 # Korzystanie z Aplikacji
 Rejestracja i Logowanie
@@ -82,7 +82,9 @@ W profilu możesz zmienić hasło lub usunąć konto.
 Zakończenie
 Aby zatrzymać kontenery, wykonaj:
 
+```
 docker-compose down
+```
 
 # Podsumowanie
 

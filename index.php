@@ -1,7 +1,6 @@
 <?php
 require 'Routing.php';
 
-// Strona główna – listy
 Routing::get('', 'ListController', 'index');
 Routing::get('index', 'ListController', 'index');
 

@@ -27,7 +27,7 @@ Inicjalizacja Bazy Danych
 
 Automatyczna inicjalizacja:
 
-W projekcie znajduje się plik database_setup.sql, który jest montowany do kontenera PostgreSQL (ścieżka: /docker-entrypoint-initdb.d/database_setup.sql). Skrypt tworzy tabele, widoki, funkcje i trigger-y, które są wykonywane przy pierwszym uruchomieniu kontenera (gdy wolumen danych jest pusty).
+W projekcie znajduje się plik database_setup.sql, który jest montowany do kontenera PostgreSQL. Skrypt tworzy tabele, widoki, funkcje i trigger-y, które są wykonywane przy pierwszym uruchomieniu kontenera (gdy wolumen danych jest pusty).
 
 Wymuszenie ponownej inicjalizacji:
 

@@ -93,5 +93,5 @@ Utwórz konto przez formularz na stronie /register.
 ## Logowanie: 
 Zaloguj się na stronie /login używając danych rejestracyjnych.
 
-##Zarządzanie listami: 
+## Zarządzanie listami: 
 Twórz, edytuj i finalizuj listy zakupów.

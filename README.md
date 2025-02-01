@@ -41,7 +41,7 @@ docker-compose up -d --build
 ```
 
 # Korzystanie z Aplikacji
-Rejestracja i Logowanie
+## Rejestracja i Logowanie
 
 Stworzenie konta:
 
@@ -52,7 +52,7 @@ Wypełnij formularz rejestracyjny (podaj nazwę użytkownika, adres e‑mail ora
 Po pomyślnej rejestracji konto zostanie utworzone.
 
 
-Logowanie:
+## Logowanie:
 
 Następnie przejdź do http://localhost:8080/login.
 
@@ -60,16 +60,15 @@ Zaloguj się, podając adres e‑mail oraz hasło użyte przy rejestracji.
 
 Zarządzanie Listami Zakupów
 
-Tworzenie listy:
+## Tworzenie listy:
 
 Po zalogowaniu możesz tworzyć nowe listy zakupów, dodawać do nich elementy oraz usuwać je.
 
-Finalizacja listy:
+## Finalizacja listy:
 
 Po finalizacji lista przechodzi w status finalized. Dla takich list automatycznie aktualizowane są statystyki użytkownika (liczba sfinalizowanych list oraz łączny koszt obliczony na podstawie pozycji listy).
 
-Profil Użytkownika
-Dostęp do profilu:
+## Profil Użytkownika, dostęp do profilu:
 
 Po zalogowaniu przejdź do http://localhost:8080/profil, aby zobaczyć dane swojego konta oraz statystyki (np. liczba sfinalizowanych list i łączny koszt zakupów).
 
@@ -79,7 +78,7 @@ W profilu możesz zmienić hasło lub usunąć konto.
 
 
 
-Zakończenie
+## Zakończenie
 Aby zatrzymać kontenery, wykonaj:
 
 ```
@@ -88,8 +87,11 @@ docker-compose down
 
 # Podsumowanie
 
-Rejestracja: Utwórz konto przez formularz na stronie /register.
+## Rejestracja: 
+Utwórz konto przez formularz na stronie /register.
 
-Logowanie: Zaloguj się na stronie /login używając danych rejestracyjnych.
+## Logowanie: 
+Zaloguj się na stronie /login używając danych rejestracyjnych.
 
-Zarządzanie listami: Twórz, edytuj i finalizuj listy zakupów.
+##Zarządzanie listami: 
+Twórz, edytuj i finalizuj listy zakupów.

@@ -10,12 +10,6 @@ require_once __DIR__.'/../models/User.php';
 
 class UserRepository extends Repository {
 
-    /**
-     * Pobiera użytkownika na podstawie adresu e-mail.
-     *
-     * @param string $email
-     * @return User|null
-     */
     public function getUser(string $email): ?User {
         $stmt = $this->database->connect()->prepare('SELECT * FROM public.users WHERE email = :email');
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
